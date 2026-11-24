@@ -1,11 +1,11 @@
 (function () {
   const T = {
     en: {
-      names: "Latifa & Nidhal", tap: "Tap the seal to open", open: "Open the invitation",
+      names: "Latifa & Nidhal", n1: "Latifa", amp: "&", n2: "Nidhal", tap: "Tap the seal to open", open: "Open the invitation",
       invite: "Together with their families", invite2: "invite you to celebrate their wedding",
       date: "2 January 2027", time: "at 3:30 PM", place: "Flamingo Golf Course", city: "Monastir, Tunisia",
       cdTitle: "Counting down to our day", d: "Days", h: "Hours", m: "Minutes", s: "Seconds",
-      where: "The venue", openMap: "Open in Maps",
+      where: "The venue", openMap: "Get directions",
       rsvpTitle: "Kindly reply", rsvpNote: "Please reply by 31 December 2026.",
       fName: "Your name", fMsg: "A message or blessing (optional)", fBtn: "Confirm attendance",
       ok: "Thank you. Your reply is registered.", dup: "This name is already registered.",
@@ -18,11 +18,11 @@
       gbpMsg: "Your congratulations or prayer", gbpBtn: "Send message", gbpOk: "Thank you. Your message was sent.", back: "Back to the invitation"
     },
     ar: {
-      names: "لطيفة ونضال", tap: "المسوا الختم لفتح الدعوة", open: "افتح الدعوة",
+      names: "لطيفة ونضال", n1: "لطيفة", amp: "و", n2: "نضال", tap: "المسوا الختم لفتح الدعوة", open: "افتح الدعوة",
       invite: "بكل حبّ وسرور", invite2: "يسرّنا دعوتكم لمشاركتنا فرحة زفافنا",
       date: "02 جانفي 2027", time: "الساعة 3:30 مساءً", place: "ملعب فلامنغو للغولف", city: "المنستير، تونس",
       cdTitle: "العدّ التنازلي ليوم فرحتنا", d: "أيام", h: "ساعات", m: "دقائق", s: "ثوانٍ",
-      where: "مكان الحفل", openMap: "افتح في الخرائط",
+      where: "مكان الحفل", openMap: "عرض الاتجاهات",
       rsvpTitle: "تأكيد الحضور", rsvpNote: "نرجو تأكيد الحضور قبل 31 ديسمبر 2026.",
       fName: "الاسم", fMsg: "رسالة أو دعاء (اختياري)", fBtn: "تأكيد الحضور",
       ok: "شكراً لكم، تم تسجيل ردّكم.", dup: "هذا الاسم مسجَّل من قبل.",
@@ -72,17 +72,33 @@
   }
 
   // envelope
-  const seal = $("#seal");
+  const seal = $("#sealBtn");
   if (seal) {
     const open = () => {
       $("#env").classList.add("open");
       if (bgm && cfg.musicFile) bgm.play().then(() => { musicOn = true; setMusicLabel(); }).catch(() => {});
       setTimeout(() => { $("#intro").classList.add("done"); document.body.classList.remove("locked"); }, 1700);
+      setTimeout(() => document.body.classList.add("grown"), 2300);
     };
     seal.addEventListener("click", open, { once: true });
     $("#env").addEventListener("click", () => seal.click());
     if (bgm && cfg.musicFile) bgm.preload = "auto";
   } else document.body.classList.remove("locked");
+
+
+  // climbing flowers (built once, grow after the envelope opens)
+  function buildVines() {
+    const host = $("#vines"); if (!host) return;
+    const stems = [["M28 600C16 500 46 410 32 310C22 230 42 150 34 62", .2], ["M32 470C52 445 64 420 66 382", 1.4], ["M30 340C12 312 8 276 14 236", 2.2], ["M36 190C54 168 60 150 56 120", 3], ["M26 540C10 520 8 500 12 470", .9]];
+    const flowers = [[34, 56, .62, 4.4], [66, 376, .5, 2.9], [14, 230, .52, 3.6], [56, 114, .46, 4], [12, 464, .42, 2.1], [33, 300, .34, 2.6], [28, 430, .32, 2.2]];
+    const leaves = [[30, 520, -30, 1.2], [33, 400, 35, 1.8], [32, 260, -40, 2.4], [34, 150, 30, 3.2], [20, 560, 20, 1.1]];
+    let g = stems.map((a) => `<path class="stem" pathLength="1" d="${a[0]}" style="--d:${a[1]}s"/>`).join("");
+    g += leaves.map((a) => `<g transform="translate(${a[0]} ${a[1]}) rotate(${a[2]})"><g class="fl" style="--d:${a[3]}s"><path d="M0 0C8-8 18-6 22 0C14 6 6 6 0 0Z" fill="#7F946F"/></g></g>`).join("");
+    g += flowers.map((a) => `<g transform="translate(${a[0]} ${a[1]}) scale(${a[2]})"><g class="fl" style="--d:${a[3]}s"><use href="#bloom" x="-30" y="-30" width="60" height="60"/></g></g>`).join("");
+    const svg = `<svg viewBox="0 0 84 600"><g class="sw">${g}</g></svg>`;
+    host.innerHTML = `<div class="vine l">${svg}</div><div class="vine r">${svg}</div>`;
+  }
+  buildVines();
 
   // countdown (2 Jan 2027, 15:30 Tunisia time = UTC+1)
   const target = Date.parse("2027-01-02T15:30:00+01:00");

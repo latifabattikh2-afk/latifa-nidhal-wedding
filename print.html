@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Printed invitation</title>
+<link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cormorant+Garamond:wght@400;500&family=Pinyon+Script&display=swap" rel="stylesheet">
+<style>
+@page{size:A5;margin:0}
+body{margin:0;background:#ddd;font-family:'Cormorant Garamond','Amiri',serif;color:#514638;text-align:center}
+.card{width:148mm;height:210mm;margin:10px auto;background:#F8F4EA;padding:8mm;box-sizing:border-box;position:relative;overflow:hidden;page-break-after:always}
+.card::before{content:"";position:absolute;inset:6mm;border:.3mm solid #B49A68}.card::after{content:"";position:absolute;inset:8mm;border:.15mm solid #B49A68}
+.in{position:relative;z-index:1;padding:8mm 4mm 0}
+.mono{font-size:30pt;color:#B49A68;line-height:1}
+.names{font-family:'Pinyon Script',cursive;font-size:40pt;color:#9A7F4D;line-height:1.05;margin:4mm 0}
+.names i{display:block;font-size:20pt;color:#B49A68;font-style:normal}
+p{margin:1.2mm 0;font-size:11.5pt}.ar{font-family:'Amiri',serif;font-size:12.5pt}.sm{font-size:9.5pt;color:#7a6f5e}
+.qrs{display:flex;justify-content:center;gap:12mm;margin-top:8mm}
+.q{width:40mm}.qb{background:#fff;padding:2.5mm;border:.2mm solid #B49A68;width:40mm;height:40mm;display:grid;place-items:center}
+.qb img,.qb canvas{max-width:100%;height:auto}.empty{font-size:8pt;color:#7a6f5e;border:.2mm dashed #B49A68;height:100%;display:grid;place-items:center;padding:2mm}
+@media print{body{background:none}.card{margin:0}}
+</style>
+</head>
+<body>
+<div class="card"><div class="in">
+<div class="mono">L&nbsp;N</div>
+<div class="names">Latifa<i>&amp;</i>Nidhal</div>
+<p>invite you to celebrate their wedding</p>
+<p class="ar">يسرّنا دعوتكم لمشاركتنا فرحة زفافنا</p>
+<p style="margin-top:5mm;font-size:14pt">2 January 2027 · 3:30 PM</p>
+<p class="ar">02 جانفي 2027 · الساعة 3:30 مساءً</p>
+<p style="margin-top:4mm">Flamingo Golf Course, Monastir, Tunisia</p>
+<p class="ar">ملعب فلامنغو للغولف، المنستير، تونس</p>
+<p class="sm" style="margin-top:3mm">RSVP before 31 December 2026 · الرد قبل 31 ديسمبر 2026</p>
+<div class="qrs">
+<div class="q"><div class="qb" id="q1"></div><p class="sm">Invitation<br><span class="ar">الدعوة الإلكترونية</span></p></div>
+<div class="q"><div class="qb" id="q2"></div><p class="sm">Share your photos<br><span class="ar">شاركونا صوركم</span></p></div>
+</div></div></div>
+<script src="config.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<script>
+function mk(id,u){var el=document.getElementById(id);if(!u){el.innerHTML='<div class="empty">QR 2 — to be activated when the album link is ready</div>';return}
+new QRCode(el,{text:u,width:400,height:400,colorDark:"#514638",colorLight:"#ffffff",correctLevel:QRCode.CorrectLevel.H});
+setTimeout(function(){el.querySelectorAll("img,canvas").forEach(function(n){n.style.width="100%";n.style.height="auto"})},60)}
+mk("q1",location.origin+"/");mk("q2",(window.WEDDING||{}).photoAlbumUrl||"");
+</script>
+</body>
+</html>

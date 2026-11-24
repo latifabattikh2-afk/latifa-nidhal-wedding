@@ -4,15 +4,17 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Guestbook · دفتر التهاني</title>
-<link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cormorant+Garamond:ital,wght@0,400;0,500;1,500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Aref+Ruqaa:wght@400;700&family=Cormorant+Garamond:wght@400;500;600&family=Pinyon+Script&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs><symbol id="bloom" viewBox="-30 -30 60 60"><g fill="#fff" stroke="#b9c3b4" stroke-width=".8"><ellipse cx="0" cy="-14" rx="8" ry="13"/><ellipse cx="0" cy="-14" rx="8" ry="13" transform="rotate(72)"/><ellipse cx="0" cy="-14" rx="8" ry="13" transform="rotate(144)"/><ellipse cx="0" cy="-14" rx="8" ry="13" transform="rotate(216)"/><ellipse cx="0" cy="-14" rx="8" ry="13" transform="rotate(288)"/></g><circle r="4" fill="#d9c28f"/></symbol></defs></svg>
+<img class="garden" src="garden.svg" alt="">
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+<symbol id="mono" viewBox="-40 -40 80 80"><circle r="37" fill="none" stroke="currentColor" stroke-width="1"/><circle r="34" fill="none" stroke="currentColor" stroke-width=".4"/><g font-family="'Cormorant Garamond',Georgia,serif" font-weight="500" font-size="40" fill="currentColor" text-anchor="middle"><text x="-8" y="12" opacity=".8">L</text><text x="9" y="12">N</text></g></symbol></defs></svg>
 <div class="ctrl"><button id="lang" type="button">العربية</button></div>
-<main>
+<main style="padding-top:68px">
 <div class="frame"><div class="frame-in"><div>
-<svg class="bloom"><use href="#bloom"/></svg>
+<svg class="mono"><use href="#mono"/></svg>
 <h2 style="margin-top:14px" data-i18n="gbpTitle">Guestbook</h2>
 <p class="small" data-i18n="gbpText">Your words will be read by Latifa and Nidhal.</p>
 <form id="gb">
