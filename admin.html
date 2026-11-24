@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Admin</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<style>table{width:100%;border-collapse:collapse;font-size:1rem}td,th{border-bottom:1px solid var(--line);padding:8px 6px;text-align:start;vertical-align:top}td.m{white-space:pre-wrap;word-break:break-word}h2{margin-top:34px}</style>
+</head>
+<body>
+<div class="plain">
+<h2 style="margin-top:0">Guest replies</h2>
+<form id="login"><label>Password<input type="password" id="pw" autocomplete="current-password" required></label>
+<button class="btn" type="submit">Show</button><p class="msg" id="st" role="status"></p></form>
+<div id="out" hidden>
+<h2><span id="nr">0</span> replies</h2><div style="overflow-x:auto"><table id="tr"></table></div>
+<h2><span id="ng">0</span> guestbook messages</h2><div style="overflow-x:auto"><table id="tg"></table></div>
+<p><button class="btn alt" id="csv" type="button">Download replies (CSV)</button></p>
+</div></div>
+<script>
+const $=s=>document.querySelector(s);let data=null;
+function fill(tb,rows){tb.innerHTML="";rows.forEach(r=>{const tr=tb.insertRow();[r.name||"—",r.message||"",r.created_at||""].forEach((v,i)=>{const td=tr.insertCell();td.textContent=v;if(i===1)td.className="m"})})}
+$("#login").addEventListener("submit",async e=>{e.preventDefault();$("#st").textContent="Loading…";
+try{const r=await fetch("/api/admin",{headers:{"x-admin-password":$("#pw").value}});const d=await r.json();
+if(!r.ok){$("#st").className="msg bad";$("#st").textContent=d.error==="unauthorized"?"Wrong password.":d.error==="no_password_set"?"No ADMIN_PASSWORD has been set in Cloudflare yet.":"Error.";return}
+data=d;$("#st").textContent="";$("#login").hidden=true;$("#out").hidden=false;
+$("#nr").textContent=d.rsvps.length;$("#ng").textContent=d.guestbook.length;fill($("#tr"),d.rsvps);fill($("#tg"),d.guestbook)}catch(x){$("#st").textContent="Error."}});
+$("#csv").addEventListener("click",()=>{const q=v=>'"'+String(v??"").replace(/"/g,'""')+'"';
+const t="\ufeffname,message,date\n"+data.rsvps.map(r=>[r.name,r.message,r.created_at].map(q).join(",")).join("\n");
+const a=document.createElement("a");a.href=URL.createObjectURL(new Blob([t],{type:"text/csv"}));a.download="replies.csv";a.click()});
+</script>
+</body>
+</html>

@@ -1,25 +1,100 @@
-<!doctype html>
-<html lang="ar" dir="rtl">
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>لطيفة ونضال | Latifa & Nidhal</title>
-  <link rel="stylesheet" href="styles.css">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Latifa & Nidhal · لطيفة ونضال</title>
+<meta name="description" content="Wedding invitation · دعوة زفاف">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
 </head>
-<body>
-  <main class="invitation">
-    <p class="eyebrow">بكل حب وسرور</p>
-    <h1>لطيفة ونضال</h1>
-    <p class="english">Latifa &amp; Nidhal</p>
-    <p>يسرّنا دعوتكم لمشاركتنا فرحة زفافنا</p>
-    <p class="date">02 جانفي 2027 · الساعة 15:30</p>
-    <section class="countdown" aria-live="polite">
-      <h2>الوقت المتبقي لفرحتنا</h2>
-      <p id="countdown">قريباً…</p>
-    </section>
-    <p class="note">هذه نسخة تأسيسية. ستُضاف تفاصيل المكان والخريطة ونموذج الرد ودفتر التهاني بعد استكمال الربط والاختبار.</p>
-  </main>
-  <script src="config.js"></script>
-  <script src="app.js"></script>
+<body class="locked">
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+<symbol id="bloom" viewBox="-30 -30 60 60">
+<g fill="#fff" stroke="#b9c3b4" stroke-width=".8">
+<ellipse cx="0" cy="-14" rx="8" ry="13"/><ellipse cx="0" cy="-14" rx="8" ry="13" transform="rotate(72)"/><ellipse cx="0" cy="-14" rx="8" ry="13" transform="rotate(144)"/><ellipse cx="0" cy="-14" rx="8" ry="13" transform="rotate(216)"/><ellipse cx="0" cy="-14" rx="8" ry="13" transform="rotate(288)"/></g>
+<circle r="4" fill="#d9c28f"/><g fill="#a3844f"><circle cx="0" cy="-7" r=".9"/><circle cx="6.6" cy="-2" r=".9"/><circle cx="4" cy="5.6" r=".9"/><circle cx="-4" cy="5.6" r=".9"/><circle cx="-6.6" cy="-2" r=".9"/></g>
+</symbol></defs></svg>
+
+<div class="ctrl">
+<button id="lang" type="button" aria-label="Language">العربية</button>
+<button id="music" type="button" hidden data-i18n="musicOn">Music</button>
+</div>
+
+<div id="intro">
+<div>
+<div class="env" id="env">
+<div class="back"></div>
+<div class="card"><b data-i18n="names">Latifa &amp; Nidhal</b></div>
+<div class="front"></div>
+<div class="flap"></div>
+<button class="seal" id="seal" type="button" data-i18n-aria="open" aria-label="Open the invitation"><svg><use href="#bloom"/></svg></button>
+</div>
+<p data-i18n="tap">Tap the seal to open</p>
+</div>
+</div>
+
+<main>
+<div class="frame"><div class="frame-in"><div>
+
+<section>
+<svg class="bloom"><use href="#bloom"/></svg>
+<p class="small" data-i18n="invite">Together with their families</p>
+<h1 data-i18n="names">Latifa &amp; Nidhal</h1>
+<p data-i18n="invite2">invite you to celebrate their wedding</p>
+<p class="date" data-i18n="date">2 January 2027</p>
+<p data-i18n="time">at 3:30 PM</p>
+<div class="rule"></div>
+<p data-i18n="place">Flamingo Golf Course</p>
+<p class="small" data-i18n="city">Monastir, Tunisia</p>
+</section>
+
+<section>
+<h2 data-i18n="cdTitle">Counting down to our day</h2>
+<div class="cd" id="cd">
+<div><b id="d">0</b><span data-i18n="d">Days</span></div>
+<div><b id="h">00</b><span data-i18n="h">Hours</span></div>
+<div><b id="m">00</b><span data-i18n="m">Minutes</span></div>
+<div><b id="s">00</b><span data-i18n="s">Seconds</span></div>
+</div>
+</section>
+
+<section>
+<h2 data-i18n="where">The venue</h2>
+<div class="map"><iframe title="Map" loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://www.google.com/maps?q=Flamingo+Golf+Course+Monastir+Tunisia&amp;z=14&amp;output=embed"></iframe></div>
+<a class="btn alt" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=Flamingo+Golf+Course+Monastir+Tunisia" data-i18n="openMap">Open in Maps</a>
+</section>
+
+<section>
+<h2 data-i18n="rsvpTitle">Kindly reply</h2>
+<p class="small" data-i18n="rsvpNote">Please reply by 31 December 2026.</p>
+<form id="rsvp">
+<label><span data-i18n="fName">Your name</span><input name="name" required minlength="2" maxlength="80" autocomplete="name"></label>
+<label><span data-i18n="fMsg">A message or blessing (optional)</span><textarea name="message" maxlength="600"></textarea></label>
+<button class="btn" type="submit" data-i18n="fBtn">Confirm attendance</button>
+<p class="msg" id="rsvpMsg" role="status"></p>
+</form>
+</section>
+
+<section>
+<h2 data-i18n="gbTitle">Guestbook</h2>
+<p class="small" data-i18n="gbText">Leave your congratulations and prayers for the couple.</p>
+<p style="margin-top:14px"><a class="btn alt" href="guestbook.html" data-i18n="gbBtn">Write a message</a></p>
+</section>
+
+<section id="photos" hidden>
+<h2 data-i18n="phTitle">Share your photos</h2>
+<p class="small" data-i18n="phText">Add the pictures you take at the celebration to our shared album.</p>
+<p style="margin-top:14px"><a class="btn alt" id="phLink" target="_blank" rel="noopener" href="#" data-i18n="phBtn">Open the album</a></p>
+</section>
+
+</div></div></div>
+<footer data-i18n="foot">With love, Latifa &amp; Nidhal</footer>
+</main>
+<audio id="bgm" loop preload="none"></audio>
+<script src="config.js"></script>
+<script src="app.js"></script>
 </body>
 </html>

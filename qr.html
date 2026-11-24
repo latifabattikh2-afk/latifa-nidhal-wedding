@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>QR codes</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<style>.q{text-align:center;margin:30px 0}.q canvas,.q img{background:#fff}</style>
+</head>
+<body>
+<div class="plain">
+<h2>The two QR codes for the printed invitation</h2>
+<div class="q"><p>1. Opens the invitation</p><div id="q1"></div><p id="u1" class="small"></p><button class="btn" data-dl="q1" data-n="invitation-qr" type="button">Download image</button></div>
+<div class="q"><p>2. Opens the photo album</p><div id="q2"></div><p id="u2" class="small"></p><button class="btn" data-dl="q2" data-n="photos-qr" type="button">Download image</button></div>
+</div>
+<script src="config.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<script>
+const links=[location.origin+"/",(window.WEDDING||{}).photoAlbumUrl||""];
+links.forEach((u,i)=>{const id="q"+(i+1);document.getElementById("u"+(i+1)).textContent=u||"Add the album link in config.js first.";
+if(u)new QRCode(document.getElementById(id),{text:u,width:260,height:260,correctLevel:QRCode.CorrectLevel.H})});
+document.querySelectorAll("[data-dl]").forEach(b=>b.addEventListener("click",()=>{
+const c=document.querySelector("#"+b.dataset.dl+" canvas");if(!c)return;
+const o=document.createElement("canvas");o.width=o.height=c.width+80;const x=o.getContext("2d");x.fillStyle="#fff";x.fillRect(0,0,o.width,o.height);x.drawImage(c,40,40);
+const a=document.createElement("a");a.href=o.toDataURL("image/png");a.download=b.dataset.n+".png";a.click()}));
+</script>
+</body>
+</html>
