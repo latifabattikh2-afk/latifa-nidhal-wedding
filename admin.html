@@ -1,35 +1,39 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="robots" content="noindex,nofollow">
-<title>Admin</title>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles.css">
-<style>table{width:100%;border-collapse:collapse;font-size:1rem}td,th{border-bottom:1px solid var(--line);padding:8px 6px;text-align:start;vertical-align:top}td.m{white-space:pre-wrap;word-break:break-word}h2{margin-top:34px}</style>
-</head>
-<body>
-<div class="plain">
-<h2 style="margin-top:0">Guest replies</h2>
-<form id="login"><label>Password<input type="password" id="pw" autocomplete="current-password" required></label>
-<button class="btn" type="submit">Show</button><p class="msg" id="st" role="status"></p></form>
-<div id="out" hidden>
-<h2><span id="nr">0</span> replies</h2><div style="overflow-x:auto"><table id="tr"></table></div>
-<h2><span id="ng">0</span> guestbook messages</h2><div style="overflow-x:auto"><table id="tg"></table></div>
-<p><button class="btn alt" id="csv" type="button">Download replies (CSV)</button></p>
-</div></div>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="robots" content="noindex,nofollow">
+<meta name="viewport" content="width=device-width, initial-scale=1"><title>Dashboard</title>
+<style>
+body{margin:0;font:16px/1.5 Georgia,serif;background:#f7f1e3;color:#3b3a2c}
+header{padding:1rem;border-bottom:1px solid #a8884a;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:.5rem}
+main{max-width:56rem;margin:0 auto;padding:1rem}
+button{font:inherit;padding:.35em .9em;border:1px solid #a8884a;background:#fffaf0;cursor:pointer;border-radius:2px}
+button.on{background:#a8884a;color:#fff}input{font:inherit;padding:.5em;border:1px solid #a8884a;width:100%;max-width:20rem}
+.card{border:1px solid #d9c9a3;background:#fffdf7;padding:.7rem .9rem;margin:.6rem 0}
+.card small{color:#7a735a}.act{display:flex;gap:.4rem;flex-wrap:wrap;margin-top:.5rem}
+.tag{font-size:.85rem;padding:0 .5em;border:1px solid;border-radius:9px}.approved,.yes{color:#3f6b2f}.rejected,.no{color:#9a3b2d}.pending{color:#8a6d1f}
+audio{width:100%;margin-top:.4rem}.tabs{display:flex;gap:.4rem;margin:1rem 0;flex-wrap:wrap}
+</style></head><body>
+<div id="login" style="padding:2rem"><h2>Private dashboard</h2><form id="lf"><input type="password" id="pw" placeholder="Password" autocomplete="current-password" required> <button>Sign in</button></form><p id="le"></p></div>
+<div id="app" hidden><header><b>Latifa &amp; Nidhal – Dashboard</b><span><button id="rf">Refresh</button> <button id="lo">Sign out</button></span></header>
+<main><div id="sum"></div><div class="tabs" id="tabs"></div><div id="list"></div></main></div>
 <script>
-const $=s=>document.querySelector(s);let data=null;
-function fill(tb,rows){tb.innerHTML="";rows.forEach(r=>{const tr=tb.insertRow();[r.name||"—",r.message||"",r.created_at||""].forEach((v,i)=>{const td=tr.insertCell();td.textContent=v;if(i===1)td.className="m"})})}
-$("#login").addEventListener("submit",async e=>{e.preventDefault();$("#st").textContent="Loading…";
-try{const r=await fetch("/api/admin",{headers:{"x-admin-password":$("#pw").value}});const d=await r.json();
-if(!r.ok){$("#st").className="msg bad";$("#st").textContent=d.error==="unauthorized"?"Wrong password.":d.error==="no_password_set"?"No ADMIN_PASSWORD has been set in Cloudflare yet.":"Error.";return}
-data=d;$("#st").textContent="";$("#login").hidden=true;$("#out").hidden=false;
-$("#nr").textContent=d.rsvps.length;$("#ng").textContent=d.guestbook.length;fill($("#tr"),d.rsvps);fill($("#tg"),d.guestbook)}catch(x){$("#st").textContent="Error."}});
-$("#csv").addEventListener("click",()=>{const q=v=>'"'+String(v??"").replace(/"/g,'""')+'"';
-const t="\ufeffname,message,date\n"+data.rsvps.map(r=>[r.name,r.message,r.created_at].map(q).join(",")).join("\n");
-const a=document.createElement("a");a.href=URL.createObjectURL(new Blob([t],{type:"text/csv"}));a.download="replies.csv";a.click()});
-</script>
-</body>
-</html>
+const $=s=>document.querySelector(s);let D=null,tab='rsvps';
+const h=(t,p={},...k)=>{const e=document.createElement(t);Object.assign(e,p);e.append(...k);return e};
+const api=async(p,m='GET',b)=>{const r=await fetch(p,{method:m,headers:b?{'content-type':'application/json'}:{},body:b?JSON.stringify(b):undefined});if(r.status==401&&p!='/api/admin/login'){show(false);throw 0}return r};
+function show(on){$('#login').hidden=on;$('#app').hidden=!on}
+$('#lf').onsubmit=async e=>{e.preventDefault();const r=await api('/api/admin/login','POST',{password:$('#pw').value});if(r.ok){$('#pw').value='';show(true);load()}else $('#le').textContent='Wrong password.'};
+$('#lo').onclick=async()=>{await fetch('/api/admin/logout',{method:'POST'});show(false)};$('#rf').onclick=()=>load();
+async function load(){try{D=await(await api('/api/admin/data')).json();show(true);draw()}catch(e){}}
+async function act(kind,id,status){if(status=='delete'){if(!confirm('Delete permanently?'))return;await api(`/api/admin/${kind}/${id}`,'DELETE')}else await api(`/api/admin/${kind}/${id}`,'POST',{status});load()}
+function btns(kind,x){const a=h('div',{className:'act'});
+ if(x.status!=='approved')a.append(h('button',{onclick:()=>act(kind,x.id,'approved')},'Approve'));
+ if(x.status!=='rejected')a.append(h('button',{onclick:()=>act(kind,x.id,'rejected')},x.status==='approved'?'Remove from site':'Reject'));
+ a.append(h('button',{onclick:()=>act(kind,x.id,'delete')},'Delete'));return a}
+function draw(){const y=D.rsvps.filter(r=>r.attending=='yes').length,n=D.rsvps.length-y;
+ $('#sum').textContent=`${y} accepted · ${n} declined · ${D.wishes.filter(w=>w.status=='pending').length} messages and ${D.voices.filter(v=>v.status=='pending').length} voices waiting`;
+ const T=[['rsvps','RSVPs'],['wishes','Messages'],['voices','Voices']];$('#tabs').replaceChildren(...T.map(([k,l])=>h('button',{className:k==tab?'on':'',onclick:()=>{tab=k;draw()}},l)));
+ const L=$('#list');L.replaceChildren();
+ if(tab=='rsvps')D.rsvps.forEach(r=>L.append(h('div',{className:'card'},h('b',{},r.name+' '),h('span',{className:'tag '+r.attending},r.attending=='yes'?'accepts':'declines'),h('br'),h('small',{},r.created_at+(r.message?' · '+r.message:'')),h('div',{className:'act'},h('button',{onclick:()=>act('rsvp',r.id,'delete')},'Delete')))));
+ if(tab=='wishes')D.wishes.forEach(w=>L.append(h('div',{className:'card'},h('b',{},w.name+' '),h('span',{className:'tag '+w.status},w.status),h('p',{},w.message),h('small',{},w.created_at),btns('wish',w))));
+ if(tab=='voices')D.voices.forEach(v=>{const a=h('audio',{controls:true,preload:'none'});a.src=`/api/admin/voice/${v.id}/audio`;L.append(h('div',{className:'card'},h('b',{},v.name+' '),h('span',{className:'tag '+v.status},v.status),h('br'),h('small',{},v.created_at),a,btns('voice',v)))});
+ if(!L.children.length)L.append(h('p',{},'Nothing yet.'))}
+load();
+</script></body></html>

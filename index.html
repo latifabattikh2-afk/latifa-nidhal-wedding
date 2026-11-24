@@ -1,113 +1,45 @@
-<!DOCTYPE html>
-<html lang="en" dir="ltr">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Latifa & Nidhal · لطيفة ونضال</title>
-<meta name="description" content="Wedding invitation · دعوة زفاف">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Aref+Ruqaa:wght@400;700&family=Cormorant+Garamond:wght@400;500;600&family=Pinyon+Script&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles.css">
-</head>
-<body class="locked">
-<img class="garden" src="garden.svg" alt="">
-<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
-<symbol id="bloom" viewBox="-30 -30 60 60">
-<g fill="#fff" stroke="#B9C3AE" stroke-width=".7">
-<ellipse cx="0" cy="-14" rx="8" ry="13"/><ellipse cx="0" cy="-14" rx="8" ry="13" transform="rotate(72)"/><ellipse cx="0" cy="-14" rx="8" ry="13" transform="rotate(144)"/><ellipse cx="0" cy="-14" rx="8" ry="13" transform="rotate(216)"/><ellipse cx="0" cy="-14" rx="8" ry="13" transform="rotate(288)"/></g>
-<circle r="4" fill="#E3D3A8"/><g fill="#B49A68"><circle cx="0" cy="-7" r=".9"/><circle cx="6.6" cy="-2" r=".9"/><circle cx="4" cy="5.6" r=".9"/><circle cx="-4" cy="5.6" r=".9"/><circle cx="-6.6" cy="-2" r=".9"/></g>
-</symbol>
-<symbol id="mono" viewBox="-40 -40 80 80">
-<circle r="37" fill="none" stroke="currentColor" stroke-width="1"/><circle r="34" fill="none" stroke="currentColor" stroke-width=".4"/>
-<g font-family="'Cormorant Garamond',Georgia,serif" font-weight="500" font-size="40" fill="currentColor" text-anchor="middle"><text x="-8" y="12" opacity=".8">L</text><text x="9" y="12">N</text></g>
-</symbol>
-<symbol id="seal" viewBox="-40 -40 80 80">
-<radialGradient id="gd" cx=".4" cy=".35" r=".8"><stop offset="0" stop-color="#D2BC8C"/><stop offset="1" stop-color="#9C8250"/></radialGradient>
-<path d="M0-39c6 0 9 4 15 5s11 3 12 9 5 9 5 15-3 9-5 14-6 9-12 10-9 5-15 5-9-4-15-5-11-4-12-10-5-8-5-14 3-10 5-15 6-8 12-9 9-5 15-5z" fill="url(#gd)"/>
-<circle r="29" fill="none" stroke="#7D6740" stroke-width=".8" opacity=".6"/>
-<g font-family="'Cormorant Garamond',Georgia,serif" font-weight="600" font-size="34" fill="#6B5731" text-anchor="middle"><text x="-7" y="11" opacity=".75">L</text><text x="8" y="11">N</text></g>
-</symbol></defs></svg>
-
-<div class="ctrl">
-<button id="lang" type="button" aria-label="Language">العربية</button>
-<button id="music" type="button" hidden data-i18n="musicOn">Music on</button>
-</div>
-
+<!DOCTYPE html><html lang="en" dir="ltr"><head><meta charset="utf-8"><title>Latifa & Nidhal</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#f7f1e3"><meta property="og:image" content="/images/invitation.jpg">
+<link href="https://fonts.googleapis.com/css2?family=Pinyon+Script&family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=Amiri:wght@400;700&family=Aref+Ruqaa:wght@700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/styles.css"></head><body>
+<div id="lang"><button id="lb" type="button">العربية</button></div><button id="snd" type="button" aria-label="Sound">♪</button>
 <div id="intro">
-<div>
-<div class="env" id="env">
-<div class="back"></div>
-<div class="card"><svg><use href="#mono"/></svg><b data-i18n="names">Latifa &amp; Nidhal</b></div>
-<div class="front"></div>
-<div class="flap"></div>
-<button class="seal" id="sealBtn" type="button" data-i18n-aria="open" aria-label="Open the invitation"><svg><use href="#seal"/></svg></button>
+ <div class="l" style="background-image:url(/images/golf.jpg)"></div>
+ <div class="l" style="background-image:url(/images/arch.jpg)"></div>
+ <div class="l" style="background-image:url(/images/gate.jpg)"></div>
+ <button id="gate" type="button" aria-label="Open the gate"></button>
+ <button id="skip" type="button" data-i="skip">Skip</button>
+ <div id="ctl"><div class="script" data-i="names">Latifa &amp; Nidhal</div><button class="b" id="enter" type="button" data-i="enter">Open the invitation</button></div>
 </div>
-<p data-i18n="tap">Tap the seal to open</p>
-</div>
-</div>
-
-<div id="vines" aria-hidden="true"></div>
-
-<main>
-<section class="hero">
-<svg class="mono"><use href="#mono"/></svg>
-<p class="small" style="margin-top:14px" data-i18n="invite">Together with their families</p>
-<h1><span class="nm" data-i18n="n1">Latifa</span><span class="amp" data-i18n="amp">&amp;</span><span class="nm" data-i18n="n2">Nidhal</span></h1>
-<p data-i18n="invite2">invite you to celebrate their wedding</p>
-<p class="date" data-i18n="date">2 January 2027</p>
-<p data-i18n="time">at 3:30 PM</p>
-<div class="rule"></div>
-<p data-i18n="place">Flamingo Golf Course</p>
-<p class="small" data-i18n="city">Monastir, Tunisia</p>
-</section>
-
-<div class="frame"><div class="frame-in"><div>
-
-<section>
-<h2 data-i18n="cdTitle">Counting down to our day</h2>
-<div class="cd" id="cd">
-<div><b id="d">0</b><span data-i18n="d">Days</span></div>
-<div><b id="h">00</b><span data-i18n="h">Hours</span></div>
-<div><b id="m">00</b><span data-i18n="m">Minutes</span></div>
-<div><b id="s">00</b><span data-i18n="s">Seconds</span></div>
-</div>
-</section>
-
-<section>
-<h2 data-i18n="where">The venue</h2>
-<div class="map"><div><iframe title="Map" loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://www.google.com/maps?q=Flamingo+Golf+Course+Monastir+Tunisia&amp;z=14&amp;output=embed"></iframe></div></div>
-<a class="btn alt" target="_blank" rel="noopener" href="https://www.google.com/maps/dir/?api=1&amp;destination=Flamingo+Golf+Course+Monastir+Tunisia" data-i18n="openMap">Get directions</a>
-</section>
-
-<section>
-<h2 data-i18n="rsvpTitle">Kindly reply</h2>
-<p class="small" data-i18n="rsvpNote">Please reply by 31 December 2026.</p>
-<form id="rsvp">
-<label><span data-i18n="fName">Your name</span><input name="name" required minlength="2" maxlength="80" autocomplete="name"></label>
-<label><span data-i18n="fMsg">A message or blessing (optional)</span><textarea name="message" maxlength="600"></textarea></label>
-<button class="btn" type="submit" data-i18n="fBtn">Confirm attendance</button>
-<p class="msg" id="rsvpMsg" role="status"></p>
-</form>
-</section>
-
-<section>
-<h2 data-i18n="gbTitle">Guestbook</h2>
-<p class="small" data-i18n="gbText">Leave your congratulations and prayers for the couple.</p>
-<p style="margin-top:14px"><a class="btn alt" href="guestbook.html" data-i18n="gbBtn">Write a message</a></p>
-</section>
-
-<section id="photos" hidden>
-<h2 data-i18n="phTitle">Share your photos</h2>
-<p class="small" data-i18n="phText">Add the pictures you take at the celebration to our shared album.</p>
-<p style="margin-top:14px"><a class="btn alt" id="phLink" target="_blank" rel="noopener" href="#" data-i18n="phBtn">Open the album</a></p>
-</section>
-
-</div></div></div>
-<footer data-i18n="foot">With love, Latifa &amp; Nidhal</footer>
+<main id="main" style="--hero:url(/images/invitation.jpg)">
+ <header class="hero"><div>
+  <img class="seal" alt="L&amp;N" src="/images/seal.jpg">
+  <p class="fine" data-i="t1">Together with their families,</p>
+  <h1 class="script" data-i="names">Latifa &amp; Nidhal</h1>
+  <p class="fine" data-i="t2"></p>
+  <p class="date" data-i="date">02 January 2027</p>
+  <p data-i="venue">Flamingo Golf Course, Monastir, Tunisia</p>
+ </div></header>
+ <section class="s"><h2 data-i="cdh">Until we celebrate</h2><div id="cd"></div></section>
+ <section class="s"><img class="pic" alt="" src="/images/arch.jpg"><h2 data-i="prog">The Day</h2>
+  <ol class="tl"><li><time>3:30 PM</time><span data-i="p1">Guest Reception</span></li><li><time>4:00 PM</time><span data-i="p2">Marriage Ceremony</span></li><li><time>4:30 PM</time><span data-i="p3">Photography</span></li><li><time>6:00 PM</time><span data-i="p4">Musical Celebration</span></li></ol></section>
+ <section class="s"><img class="pic" alt="" src="/images/golf.jpg"><h2 data-i="loc">Location</h2><p data-i="venue">Flamingo Golf Course, Monastir, Tunisia</p>
+  <iframe id="map" title="Map" loading="lazy"></iframe>
+  <a class="l2" id="dirl" target="_blank" rel="noopener" data-i="dir">Get directions</a></section>
+ <section class="s" id="rsvp"><h2 data-i="rs">Kindly reply</h2><p data-i="rsd">Please reply by 31 December 2026.</p>
+  <form id="rf"><input type="text" id="rn" required minlength="2" maxlength="80" autocomplete="name" data-p="fn" placeholder="Full name">
+   <div class="row"><label><input type="radio" name="a" value="yes" checked> <span data-i="acc">Joyfully accept</span></label><label><input type="radio" name="a" value="no"> <span data-i="dec">Regretfully decline</span></label></div>
+   <textarea id="rm" rows="3" maxlength="400" data-p="bl" placeholder="A prayer or blessing (optional)"></textarea>
+   <button class="b" type="submit" data-i="send">Send reply</button><div class="msg" id="rmsg" role="status"></div></form></section>
+ <section class="s" id="wishes"><h2 data-i="wl">Words of Love</h2>
+  <form id="gf"><input type="text" id="gn" required minlength="2" maxlength="80" data-p="yn" placeholder="Your name"><textarea id="gm" rows="3" required minlength="2" maxlength="400" data-p="wp" placeholder="Write your wishes"></textarea><button class="b" type="submit" data-i="send2">Send for review</button><div class="msg" id="gmsg" role="status"></div></form>
+  <div class="wall" id="wall"></div></section>
+ <section class="s" id="voices"><h2 data-i="vl">Voices of Love</h2><p class="fine" data-i="vs">Every voice tells a story of love.</p>
+  <div class="rec"><p id="vnote" data-i="vlock">Reply to the invitation first to record a message.</p>
+   <div id="vui" hidden><button class="b" id="vr" type="button" data-i="rec">Record</button><audio id="va" controls hidden></audio>
+   <div id="vact" hidden><button class="b" id="vs2" type="button" data-i="vsend">Send</button> <button class="b" id="vre" type="button" data-i="again">Record again</button></div></div><div class="msg" id="vmsg" role="status"></div></div>
+  <div class="wall" id="vwall"></div></section>
+ <footer><span data-i="foot">With love, Latifa &amp; Nidhal</span><br><a class="l2 pl" id="photol" hidden target="_blank" rel="noopener" data-i="photos">Share your wedding photos</a></footer>
 </main>
-<audio id="bgm" loop preload="none"></audio>
-<script src="config.js"></script>
-<script src="app.js"></script>
-</body>
-</html>
+<script src="/config.js"></script><script src="/app.js"></script></body></html>
